@@ -1,4 +1,4 @@
-const Candy = require('$snake/Candy');
+const Candy = require('../../../src/games/snake/Candy');
 
 describe('Candy tests', () => {
     it('has a point', () => {

@@ -1,12 +1,7 @@
 {
   "scripts": {
     "start": "node .",
-    "test": "jest",
-    "link": "link-module-alias"
-  },
-  "_moduleAliases": {
-    "$src": "src",
-    "$snake": "src/games/snake"
+    "test": "jest"
   },
   "devDependencies": {
     "eslint": "^6.8.0",
@@ -14,6 +9,6 @@
     "jest": "^25.1.0"
   },
   "dependencies": {
-    "link-module-alias": "^1.2.0"
+    "lodash": "^4.17.15"
   }
 }

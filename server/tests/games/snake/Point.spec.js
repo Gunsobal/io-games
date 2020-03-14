@@ -1,4 +1,4 @@
-const Point = require('$snake/Point');
+const Point = require('../../../src/games/snake/Point');
 
 describe('Point tests', () => {
     it('should be able to compare to point', () => {

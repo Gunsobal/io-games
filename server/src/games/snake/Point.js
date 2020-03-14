@@ -1,4 +1,4 @@
-const Direction = require('$snake/Direction');
+const Direction = require('./Direction');
 
 module.exports = class Point {
     constructor(x, y) {

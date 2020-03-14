@@ -1,10 +1,13 @@
-const Grid = require('$snake/Grid');
-const Snake = require('$snake/Snake');
-const Point = require('$snake/Point');
-const Direction = require('$snake/Direction');
+const Grid = require('./Grid');
+const Snake = require('./Snake');
+const Point = require('./Point');
+const Direction = require('./Direction');
+const _ = require('lodash');
+const EventEmitter = require('events');
 
-module.exports = class State {
+module.exports = class State extends EventEmitter {
     constructor(grid, snakes, candies) {
+        super();
         this.grid = grid || new Grid(20, 20);
         this.snakes = snakes || {};
         this.candies = candies || [];
@@ -38,15 +41,33 @@ module.exports = class State {
     }
 
     update() {
-        _.values(this.snakes).each(snake => snake.move());
-        
-        for (const snake of Object.values(this.snakes)) {
-            snake.move();
-        }
-        // foreach snake, move()
-        // Detect candy collision
-        //      if collision emit event & spawn candy
-        // Detect death
-        //      if death emit event & respawn small snake
+        _.each(_.values(this.snakes), snake => snake.move());
+        this.checkForCandyCollision();
+        this.checkForSnakeDeath();
+    }
+
+    checkForCandyCollision() {
+        _.each(this.candies, candy => {
+            _.each(_.values(this.snakes), snake => {
+                if (snake.getHead().equals(candy.point)) {
+                    snake.grow();
+                    candy.point = new Point(5, 5);
+                    this.emit('candy', candy);
+                    return false;
+                }
+            });
+        });
+    }
+
+    checkForSnakeDeath() {
+        _.each(_.values(this.snakes), (snake, id) => {
+            const head = snake.getHead();
+            if (head.x < 0 || head.x === this.grid.cols
+             || head.y < 0 || head.y === this.grid.rows
+             || _.find(snake.getBody(), point => point.equals(head)) !== undefined) {
+                snake.points = [ new Point(5, 5) ];
+                this.emit('death', { id, snake });
+            }
+        });
     }
 };

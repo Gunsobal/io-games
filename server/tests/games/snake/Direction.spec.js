@@ -1,4 +1,4 @@
-const Direction = require('$snake/Direction');
+const Direction = require('../../../src/games/snake/Direction');
 
 describe('Direction tests', () => {
     it('should have static directions', () =>{

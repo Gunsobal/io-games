@@ -1,4 +1,4 @@
-const Point = require('$snake/Point');
+const Point = require('./Point');
 
 module.exports = class Candy {
     constructor(point) {

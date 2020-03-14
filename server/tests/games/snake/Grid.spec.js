@@ -1,4 +1,4 @@
-const Grid = require('$snake/Grid');
+const Grid = require('../../../src/games/snake/Grid');
 
 describe('Grid tests', () => {
     it('should have rows and cols', () => {

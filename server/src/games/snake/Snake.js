@@ -1,5 +1,5 @@
-const Point = require('$snake/Point');
-const Direction = require('$snake/Direction');
+const Point = require('./Point');
+const Direction = require('./Direction');
 
 module.exports = class Snake {
     constructor(point, direction, color) {
@@ -18,6 +18,10 @@ module.exports = class Snake {
 
     getHead() {
         return this.points[0];
+    }
+
+    getBody() {
+        return this.points.slice(1);
     }
 
     getTail() {

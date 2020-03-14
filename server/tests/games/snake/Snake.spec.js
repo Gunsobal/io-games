@@ -1,6 +1,6 @@
-const Snake = require('$snake/Snake');
-const Point = require('$snake/Point');
-const Direction = require('$snake/Direction');
+const Snake = require('../../../src/games/snake/Snake');
+const Point = require('../../../src/games/snake/Point');
+const Direction = require('../../../src/games/snake/Direction');
 
 describe('Snake tests', () => {
     it('should be truthy', () => {
