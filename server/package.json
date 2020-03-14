@@ -1,0 +1,19 @@
+{
+  "scripts": {
+    "start": "node .",
+    "test": "jest",
+    "link": "link-module-alias"
+  },
+  "_moduleAliases": {
+    "$src": "src",
+    "$snake": "src/games/snake"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-plugin-jest": "^23.8.2",
+    "jest": "^25.1.0"
+  },
+  "dependencies": {
+    "link-module-alias": "^1.2.0"
+  }
+}
