@@ -6,6 +6,7 @@ module.exports = class Snake {
         this.points = [point || new Point(0, 0)];
         this.direction = direction || new Direction(Direction.RIGHT);
         this.color = color || 'white';
+        this.phantomTail = null;
     }
     
     getPoints() {
@@ -41,8 +42,9 @@ module.exports = class Snake {
     }
     
     grow() {
-        if (this.phantomTail !== undefined) {
+        if (this.phantomTail !== null) {
             this.points.push(this.phantomTail);
+            this.phantomTail = null;
         }
 
         return this;
@@ -58,5 +60,9 @@ module.exports = class Snake {
         this.direction.turnLeft();
 
         return this;
+    }
+
+    isEatingTail() {
+        return _.find(this.getBody(), point => point.equals(this.getHead())) !== undefined;
     }
 };

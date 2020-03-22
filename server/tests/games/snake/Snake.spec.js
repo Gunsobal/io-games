@@ -98,4 +98,10 @@ describe('Snake tests', () => {
     it('should have a color', () => {
         expect((new Snake).color).toBeTruthy();
     });
+
+    it('should be able to tell if it is eating its own tail', () => {
+        const snake = new Snake(new Point(5, 5), new Direction(Direction.RIGHT));
+        snake.points.push(new Point(5, 5));
+        expect(snake.isEatingTail()).toBe(true);
+    });
 });
