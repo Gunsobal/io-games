@@ -1,6 +1,6 @@
 const Grid = require('./Grid');
 const Snake = require('./Snake');
-const Point = require('./Point');
+const Candy = require('./Candy');
 const Direction = require('./Direction');
 const EventEmitter = require('events');
 
@@ -44,11 +44,31 @@ class State extends EventEmitter {
         }
     }
 
+    spawnCandy({ point, color }) {
+        this.candies.push(new Candy(point, color));
+    }
+
+    removeCandy({ candy }) {
+        const found = _.findIndex(this.candies, ({ point }) => {
+            return point.equals(candy.point);
+        });
+
+        if (found !== -1) {
+            this.candies.splice(found, 1);
+        }
+    }
+
+    removeSnake({ id }) {
+        if (this.snakes[id] !== undefined) {
+            delete this.snakes[id];
+        }
+    }
+
     checkForCandyCollision() {
         _.each(this.candies, candy => {
             _.each(_.values(this.snakes), snake => {
                 if (snake.getHead().equals(candy.point)) {
-                    this.emit('candy', candy);
+                    this.emit('candy', { id: snake.id, candy });
                     return false;
                 }
             });
@@ -68,5 +88,8 @@ State.SPAWN_SNAKE = 'spawnSnake';
 State.TURN_SNAKE = 'turnSnake';
 State.GROW_SNAKE = 'growSnake';
 State.UPDATE = 'update';
+State.REMOVE_CANDY = 'removeCandy';
+State.SPAWN_CANDY = 'spawnCandy';
+State.REMOVE_SNAKE = 'removeSnake';
 
 module.exports = State;

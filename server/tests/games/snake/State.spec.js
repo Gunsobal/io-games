@@ -109,4 +109,26 @@ describe('State tests', () => {
         state.checkForSnakeDeath();
     });
 
+    it('should spawn a new candy', () => {
+        const state = new State;
+        state.applyEvent({ type: State.SPAWN_CANDY, payload: {
+            point: new Point(1, 2)
+        }});
+        expect(state.candies).toHaveLength(1);
+    });
+
+    it('should be able to remove a candy', () => {
+        const state = new State;
+        state.spawnCandy({ point: new Point(1, 2) });
+        state.removeCandy({ candy: state.candies[0] });
+        expect(state.candies).toHaveLength(0);
+    });
+
+    it('should be able to remove snake', () => {
+        const state = new State;
+        state.spawnSnake({ id: 'foo' });
+        expect(state.snakes['foo']).toBeTruthy();
+        state.removeSnake({ id: 'foo' });
+        expect(state.snakes['foo']).toBeFalsy();
+    });
 });
